@@ -10,6 +10,8 @@ if(!class_exists('SN_Song_Translations_Shortcode')){
 			// require slider html markup
 			ob_start();
 			require(SN_SONG_TRS_PATH.'views/sn-song-translations_shortcode.php');
+			wp_enqueue_script( 'jquery-validate-sn-js' );
+			wp_enqueue_script( 'custom-sn-js' );
 			return ob_get_clean();
 		}
 	}

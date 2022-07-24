@@ -33,6 +33,8 @@ if( !class_exists( 'SN_Song_Translations' )){
             // Submit translations form shortcode
             require_once(SN_SONG_TRS_PATH.'shortcodes/class.sn-song-translations-shortcode.php');
             $sn_song_translations_shortcode = new SN_Song_Translations_Shortcode();
+            // Enqueue scripts
+            add_action('wp_enqueue_scripts' , array($this , 'register_scripts') , 999);
             			
 		}
 
@@ -120,7 +122,13 @@ if( !class_exists( 'SN_Song_Translations' )){
          */
         public static function uninstall(){
 
-        }       
+        }
+
+        // Register scripts
+        public function register_scripts(){
+            wp_register_script('custom-sn-js' , SN_SONG_TRS_URL.'assets/jquery.custom.js' , array('jquery') , SN_SONG_TRS_VERSION , true  );
+            wp_register_script('jquery-validate-sn-js' , SN_SONG_TRS_URL.'assets/jquery.validate.min.js' , array('jquery') , SN_SONG_TRS_VERSION , true  );
+        } 
 
 	}
 }

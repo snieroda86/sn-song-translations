@@ -66,23 +66,30 @@ if(isset($_POST['submitted'])){
         <?php endif; ?>
         
         <label for="sn_song_translations_title"><?php esc_html_e( 'Title', 'sn-song-translations' ); ?> *</label>
-        <input type="text" name="sn_song_translations_title" id="sn_song_translations_title" value=""  />
+        <input type="text" name="sn_song_translations_title" id="sn_song_translations_title" value="<?php if(isset($title)) echo $title;  ?>" required />
         <br />
         <label for="sn_song_translations_singer"><?php esc_html_e( 'Singer', 'sn-song-translations' ); ?> *</label>
-        <input type="text" name="sn_song_translations_singer" id="sn_song_translations_singer" value=""  />
+        <input type="text" name="sn_song_translations_singer" id="sn_song_translations_singer" value="<?php if(isset($title)) echo $singer;  ?>" required />
 
         <br />
-        <?php wp_editor( '', 'sn_song_translations_content', array( 'wpautop' => true, 'media_buttons' => false ) ); ?>
+        <?php 
+        if(isset($content)){
+             wp_editor( $content , 'sn_song_translations_content', array( 'wpautop' => true, 'media_buttons' => false ) );
+        
+        }else{
+             wp_editor( '', 'sn_song_translations_content', array( 'wpautop' => true, 'media_buttons' => false ) ); 
+        } ?>
+       
         </br />
         
         <fieldset id="additional-fields">
             <label for="sn_song_translations_transliteration"><?php esc_html_e( 'Has transliteration?', 'sn-song-translations' ); ?></label>
             <select name="sn_song_translations_transliteration" id="sn_song_translations_transliteration">
-                <option value="Yes"><?php esc_html_e( 'Yes', 'sn-song-translations' ); ?></option>
-                <option value="No"><?php esc_html_e( 'No', 'sn-song-translations' ); ?></option>
+                <option value="Yes" <?php if(isset($transliteration)) selected($transliteration , 'Yes') ?>><?php esc_html_e( 'Yes', 'sn-song-translations' ); ?></option>
+                <option value="No" <?php if(isset($transliteration)) selected($transliteration , 'No') ?>><?php esc_html_e( 'No', 'sn-song-translations' ); ?></option>
             </select>
             <label for="sn_song_translations_video_url"><?php esc_html_e( 'Video URL', 'sn-song-translations' ); ?></label>
-            <input type="url" name="sn_song_translations_video_url" id="sn_song_translations_video_url" value="" />
+            <input type="url" name="sn_song_translations_video_url" id="sn_song_translations_video_url" value="<?php if(isset($video)) echo $video;  ?>" />
         </fieldset>
         <br />
         <input type="hidden" name="sn_song_translations_action" value="save">
