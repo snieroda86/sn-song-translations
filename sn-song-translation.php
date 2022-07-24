@@ -27,6 +27,12 @@ if( !class_exists( 'SN_Song_Translations' )){
 		public function __construct(){
 
 			$this->define_constants(); 
+            // Create custom post type
+            require_once(SN_SONG_TRS_PATH.'post-types/class.sn-song-translations-cpt.php');
+            $sn_song_translations_cpt = new SN_Song_Translations_CPT();
+            // Submit translations form shortcode
+            require_once(SN_SONG_TRS_PATH.'shortcodes/class.sn-song-translations-shortcode.php');
+            $sn_song_translations_shortcode = new SN_Song_Translations_Shortcode();
             			
 		}
 
@@ -106,6 +112,7 @@ if( !class_exists( 'SN_Song_Translations' )){
          */
         public static function deactivate(){
             flush_rewrite_rules();
+            unregister_post_type( 'sn-song-translations' );
         }        
 
         /**
